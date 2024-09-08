@@ -25,7 +25,7 @@ struct HomeView: View {
                 }
                 
                 Button {
-                    print("Tap")
+                    viewModel.isPresentingSheet = true
                 } label: {
                     Label("New Task", systemImage: "plus")
                 }
@@ -39,8 +39,8 @@ struct HomeView: View {
             TopBarView(selectedID: $viewModel.selectedID)
             
             ScrollView {
-                ForEach(MockData().tasks) { task in
-                    TaskCell(isDone: task.completed)
+                ForEach(viewModel.todos) { todo in
+                    TaskCellView(viewModel: TaskCellViewModel(todo: todo))
                         .padding()
                         .background(.white)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
@@ -50,25 +50,10 @@ struct HomeView: View {
         }
         .ignoresSafeArea(edges: .bottom)
         .background(Color("backgroundGray"))
+        .sheet(isPresented: $viewModel.isPresentingSheet) {
+            AddToDoView(homeViewModel: viewModel, isPresented: $viewModel.isPresentingSheet)
+        }
     }
-}
-
-struct MockData {
-    let tasks = [
-        Task(id2: 0, todo: "Clean up my room", completed: false),
-        Task(id2: 0, todo: "Clean up my room", completed: false),
-        Task(id2: 0, todo: "Clean up my room", completed: false),
-        Task(id2: 0, todo: "Clean up my room", completed: false),
-        Task(id2: 0, todo: "Clean up my room", completed: false),
-        Task(id2: 0, todo: "Clean up my room", completed: false)
-    ]
-}
-
-struct Task: Identifiable {
-    let id = UUID()
-    let id2: Int
-    let todo: String
-    let completed: Bool
 }
 
 #Preview {

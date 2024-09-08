@@ -7,22 +7,22 @@
 
 import SwiftUI
 
-struct TaskCell: View {
+struct TaskCellView: View {
     
-    @State var isDone: Bool
+    @State var viewModel: TaskCellViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("Water the plants")
+                    Text(viewModel.todo.title)
                         .font(.headline)
                         .bold()
                         .lineLimit(1)
                         .padding(.leading, 20)
-                        .strikethrough(isDone, color: .gray)
+                        .strikethrough(viewModel.todo.completed, color: .gray)
                     
-                    Text("Description of how to do it")
+                    Text(!viewModel.todo.description.isEmpty ? viewModel.todo.description : "No description")
                         .font(.subheadline)
                         .foregroundStyle(.gray)
                         .lineLimit(1)
@@ -32,13 +32,13 @@ struct TaskCell: View {
                 Spacer()
                 
                 Button {
-                    isDone.toggle()
+                    viewModel.todo.completed.toggle()
                 } label: {
-                    Image(systemName: isDone ? "checkmark.circle.fill" : "circle")
+                    Image(systemName: viewModel.todo.completed ? "checkmark.circle.fill" : "circle")
                         .resizable()
                         .frame(width: 20, height: 20)
                 }
-                .tint(isDone ? .blue : .gray)
+                .tint(viewModel.todo.completed ? .blue : .gray)
                 .padding(.horizontal, 20)
             }
             
@@ -46,21 +46,17 @@ struct TaskCell: View {
                 .padding(.horizontal)
             
             HStack {
-                Text("Today")
+                Text(viewModel.todo.date)
                     .font(.subheadline)
                     .bold()
                     .foregroundStyle(.gray)
                     .padding(.leading, 20)
                 
-                Text("10:00 PM - 11:45 PM")
+                Text("\(viewModel.todo.startTime) - \(viewModel.todo.endTime)")
                     .font(.subheadline)
                     .bold()
                     .foregroundStyle(.placeholder)
             }
         }
     }
-}
-
-#Preview {
-    TaskCell(isDone: false)
 }
