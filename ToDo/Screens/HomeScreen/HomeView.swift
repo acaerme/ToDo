@@ -19,7 +19,7 @@ struct HomeView: View {
                         .font(.title)
                         .bold()
                     
-                    Text("Wednesday, 11 May")
+                    Text(viewModel.date)
                         .bold()
                         .foregroundStyle(.gray)
                 }
@@ -36,7 +36,7 @@ struct HomeView: View {
             }
             .padding()
             
-            TopBarView(selectedID: $viewModel.selectedID)
+            TopBarView(homeViewModel: viewModel, selectedID: $viewModel.selectedID)
             
             ScrollView {
                 ForEach(viewModel.todos) { todo in

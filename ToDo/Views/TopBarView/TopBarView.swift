@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TopBarView: View {
     
+    @ObservedObject var homeViewModel: HomeViewModel
     @Binding var selectedID: Int
 
     var body: some View {
@@ -16,7 +17,7 @@ struct TopBarView: View {
             Button  {
                 selectedID = 0
             } label: {
-                TopBarButton(title: "All", number: 35, isSelected: selectedID == 0 ? true : false)
+                TopBarButton(title: "All", number: homeViewModel.allToDos, isSelected: selectedID == 0 ? true : false)
             }
             
             Divider()
@@ -25,13 +26,13 @@ struct TopBarView: View {
             Button  {
                 selectedID = 1
             } label: {
-                TopBarButton(title: "Open", number: 14, isSelected: selectedID == 1 ? true : false)
+                TopBarButton(title: "Open", number: homeViewModel.openToDos, isSelected: selectedID == 1 ? true : false)
             }
             
             Button  {
                 selectedID = 2
             } label: {
-                TopBarButton(title: "Closed", number: 19, isSelected: selectedID == 2 ? true : false)
+                TopBarButton(title: "Closed", number: homeViewModel.closedToDos, isSelected: selectedID == 2 ? true : false)
             }
         }
     }
@@ -40,7 +41,7 @@ struct TopBarView: View {
 struct TopBarButton: View {
     
     let title: String
-    @State var number: Int
+    var number: Int
     var isSelected: Bool
     
     var body: some View {
@@ -62,5 +63,5 @@ struct TopBarButton: View {
 }
 
 #Preview {
-    TopBarView(selectedID: .constant(1))
+    TopBarView(homeViewModel: HomeViewModel(), selectedID: .constant(0))
 }
