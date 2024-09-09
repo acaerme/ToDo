@@ -17,7 +17,7 @@ struct TopBarView: View {
             Button  {
                 selectedID = 0
             } label: {
-                TopBarButton(title: "All", number: homeViewModel.allToDos, isSelected: selectedID == 0 ? true : false)
+                TopBarButton(title: "All", number: homeViewModel.allTodosCount, isSelected: selectedID == 0 ? true : false)
             }
             
             Divider()
@@ -26,13 +26,13 @@ struct TopBarView: View {
             Button  {
                 selectedID = 1
             } label: {
-                TopBarButton(title: "Open", number: homeViewModel.openToDos, isSelected: selectedID == 1 ? true : false)
+                TopBarButton(title: "Open", number: homeViewModel.openTodosCount, isSelected: selectedID == 1 ? true : false)
             }
             
             Button  {
                 selectedID = 2
             } label: {
-                TopBarButton(title: "Closed", number: homeViewModel.closedToDos, isSelected: selectedID == 2 ? true : false)
+                TopBarButton(title: "Closed", number: homeViewModel.closedTodosCount, isSelected: selectedID == 2 ? true : false)
             }
         }
     }

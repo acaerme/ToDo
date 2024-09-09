@@ -39,7 +39,7 @@ struct HomeView: View {
             TopBarView(homeViewModel: viewModel, selectedID: $viewModel.selectedID)
             
             ScrollView {
-                ForEach(viewModel.todos) { todo in
+                ForEach(viewModel.presentedTodos) { todo in
                     TaskCellView(viewModel: TaskCellViewModel(todo: todo))
                         .padding()
                         .background(.white)

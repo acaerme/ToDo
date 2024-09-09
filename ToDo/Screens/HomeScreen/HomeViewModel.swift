@@ -9,31 +9,53 @@ import Foundation
 
 final class HomeViewModel: ObservableObject {
     
-    @Published var selectedID = 0
-    @Published var todos: [ToDo] = []
-    @Published var isPresentingSheet = false
-    @Published var allToDos = 0
-    @Published var openToDos = 0
-    @Published var closedToDos = 0
-    lazy var date = getDate()
-    
-    func addToDo(from viewModel: AddToDoViewModel) {
-        todos.append(viewModel.getToDo())
-        
-        sortToDos()
+    @Published var selectedID = 0 {
+        didSet { updatePresentedTodos() }
     }
     
-    func sortToDos() {
-        allToDos = todos.count
-        openToDos = 0
-        closedToDos = 0
-        
-        for todo in todos {
+    @Published var presentedTodos: [ToDo] = []
+    @Published var isPresentingSheet = false
+    @Published var allTodosCount = 0
+    @Published var openTodosCount = 0
+    @Published var closedTodosCount = 0
+    lazy var date = getDate()
+    var allTodos: [ToDo] = []
+    var openTodos: [ToDo] = []
+    var closedTodos: [ToDo] = []
+    
+    func addToDo(from viewModel: AddToDoViewModel) {
+        allTodos.append(viewModel.getToDo())
+        sortTodos()
+        countToDos()
+        updatePresentedTodos()
+    }
+    
+    func sortTodos() {
+        for todo in allTodos {
             if !todo.completed {
-                openToDos += 1
+                openTodos.append(todo)
             } else {
-                closedToDos += 1
+                closedTodos.append(todo)
             }
+        }
+    }
+    
+    func countToDos() {
+        allTodosCount = allTodos.count
+        openTodosCount = openTodos.count
+        closedTodosCount = closedTodos.count
+    }
+    
+    func updatePresentedTodos() {
+        switch selectedID {
+        case 0:
+            presentedTodos = allTodos
+        case 1:
+            presentedTodos = openTodos
+        case 2:
+            presentedTodos = closedTodos
+        default:
+            return
         }
     }
     
@@ -44,6 +66,7 @@ final class HomeViewModel: ObservableObject {
         
         return formatter.string(from: date)
     }
+    
 }
 
 
