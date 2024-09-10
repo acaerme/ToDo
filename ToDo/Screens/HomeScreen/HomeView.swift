@@ -14,12 +14,15 @@ struct HomeView: View {
     var body: some View {
         VStack {
             HStack(spacing: 40) {
-                VStack {
+                VStack(alignment: .leading) {
                     Text("Today's Task")
+                        .lineLimit(1)
                         .font(.title)
                         .bold()
                     
                     Text(viewModel.date)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
                         .bold()
                         .foregroundStyle(.gray)
                 }

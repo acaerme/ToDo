@@ -24,7 +24,8 @@ struct AddToDoViewModel {
         let startTime = formatter.string(from: startTime)
         let endTime = formatter.string(from: endTime)
         
-        let todo = ToDo(title: title,
+        let todo = ToDo(id: UUID(),
+                        title: title,
                         description: description,
                         date: date,
                         startTime: startTime,

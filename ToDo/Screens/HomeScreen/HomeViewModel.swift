@@ -9,6 +9,8 @@ import Foundation
 
 final class HomeViewModel: ObservableObject {
     
+    private let context = DataManager.shared.container.viewContext
+    
     @Published var selectedID = 0 {
         didSet { updatePresentedTodos() }
     }
@@ -23,11 +25,52 @@ final class HomeViewModel: ObservableObject {
     var openTodos: [ToDo] = []
     var closedTodos: [ToDo] = []
     
+    init() {
+        fetchTodos()
+    }
+    
+    func fetchTodos() {
+        do {
+            let todoEntities = try context.fetch(ToDoEntity.fetchRequest())
+            
+            for todoEntity in todoEntities {
+                let todo = ToDo(id: todoEntity.id!,
+                                title: todoEntity.title!,
+                                description: todoEntity.todoDescription!,
+                                date: todoEntity.date!,
+                                startTime: todoEntity.startTime!,
+                                endTime: todoEntity.endTime!,
+                                completed: todoEntity.completed)
+                
+                allTodos.append(todo)
+            }
+            
+            sortTodos()
+            countToDos()
+            updatePresentedTodos()
+        } catch {
+            print("Something went wrong")
+        }
+    }
+    
     func addToDo(from viewModel: AddToDoViewModel) {
-        allTodos.append(viewModel.getToDo())
+        let todo = viewModel.getToDo()
+        
+        allTodos.append(todo)
         sortTodos()
         countToDos()
         updatePresentedTodos()
+        
+        let todoEntity = ToDoEntity(context: context)
+        todoEntity.id = todo.id
+        todoEntity.title = todo.title
+        todoEntity.todoDescription = todo.description
+        todoEntity.date = todo.date
+        todoEntity.startTime = todo.startTime
+        todoEntity.endTime = todo.endTime
+        todoEntity.completed = todo.completed
+        
+        try? context.save()
     }
     
     func sortTodos() {
@@ -66,7 +109,6 @@ final class HomeViewModel: ObservableObject {
         
         return formatter.string(from: date)
     }
-    
 }
 
 

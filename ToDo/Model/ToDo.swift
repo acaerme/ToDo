@@ -8,7 +8,7 @@
 import Foundation
 
 struct ToDo: Identifiable {
-    let id = UUID()
+    let id: UUID
     let title: String
     let description: String
     let date: String
