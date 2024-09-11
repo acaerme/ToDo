@@ -45,7 +45,8 @@ struct MainView: View {
                 ScrollView {
                     ForEach(viewModel.presentedTodos) { todo in
                         NavigationLink(value: todo) {
-                            TaskCellView(mainViewModel: viewModel, localViewModel: TaskCellViewModel(todo: todo))
+                            TaskCellView(mainViewModel: viewModel,
+                                         localViewModel: TaskCellViewModel(todo: todo))
                                 .padding()
                                 .background(.white)
                                 .clipShape(RoundedRectangle(cornerRadius: 16))

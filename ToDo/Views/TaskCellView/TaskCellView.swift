@@ -16,15 +16,15 @@ struct TaskCellView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text(localViewModel.todo.title)
+                    Text(localViewModel.title)
                         .font(.headline)
                         .foregroundStyle(.black)
                         .bold()
                         .lineLimit(1)
                         .padding(.leading, 20)
-                        .strikethrough(localViewModel.todo.completed, color: .gray)
+                        .strikethrough(localViewModel.completed, color: .gray)
                     
-                    Text(!localViewModel.todo.description.isEmpty ? localViewModel.todo.description : "No description")
+                    Text(localViewModel.descriptionString)
                         .font(.subheadline)
                         .foregroundStyle(.gray)
                         .lineLimit(1)
@@ -34,14 +34,14 @@ struct TaskCellView: View {
                 Spacer()
                 
                 Button {
-                    mainViewModel.completedButtonTappedInCell(with: localViewModel.todo.id)
+                    mainViewModel.completedButtonTappedInCell(with: localViewModel.id)
                     localViewModel.completeButtonTapped()
                 } label: {
-                    Image(systemName: localViewModel.todo.completed ? "checkmark.circle.fill" : "circle")
+                    Image(systemName: localViewModel.completeButtonImage)
                         .resizable()
                         .frame(width: 20, height: 20)
                 }
-                .tint(localViewModel.todo.completed ? .blue : .gray)
+                .tint(localViewModel.completed ? .blue : .gray)
                 .padding(.horizontal, 20)
             }
             
@@ -49,13 +49,13 @@ struct TaskCellView: View {
                 .padding(.horizontal)
             
             HStack {
-                Text(!localViewModel.todo.date.isEmpty ? localViewModel.todo.date : "No schedule")
+                Text(localViewModel.dateString)
                     .font(.subheadline)
                     .bold()
                     .foregroundStyle(.gray)
                     .padding(.leading, 20)
                 
-                Text("\(localViewModel.todo.startTime) - \(localViewModel.todo.endTime)")
+                Text("\(localViewModel.startTime) - \(localViewModel.endTime)")
                     .font(.subheadline)
                     .foregroundStyle(.gray)
                     .bold()
