@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    @StateObject private var viewModel = MainViewModel()
+    @StateObject private var mainViewModel = MainViewModel()
     
     var body: some View {
         NavigationStack {
@@ -21,7 +21,7 @@ struct MainView: View {
                             .font(.title)
                             .bold()
                         
-                        Text(viewModel.date)
+                        Text(mainViewModel.date)
                             .lineLimit(1)
                             .minimumScaleFactor(0.6)
                             .bold()
@@ -29,7 +29,7 @@ struct MainView: View {
                     }
                     
                     Button {
-                        viewModel.isPresentingSheet = true
+                        mainViewModel.isPresentingSheet = true
                     } label: {
                         Label("New Task", systemImage: "plus")
                     }
@@ -40,12 +40,12 @@ struct MainView: View {
                 }
                 .padding()
                 
-                TopBarView(homeViewModel: viewModel, selectedID: $viewModel.selectedID)
+                TopBarView(mainViewModel: mainViewModel, selectedID: $mainViewModel.selectedID)
                 
                 ScrollView {
-                    ForEach(viewModel.presentedTodos) { todo in
+                    ForEach(mainViewModel.presentedTodos) { todo in
                         NavigationLink(value: todo) {
-                            TaskCellView(mainViewModel: viewModel,
+                            TaskCellView(mainViewModel: mainViewModel,
                                          localViewModel: TaskCellViewModel(todo: todo))
                                 .padding()
                                 .background(.white)
@@ -57,11 +57,11 @@ struct MainView: View {
             }
             .ignoresSafeArea(edges: .bottom)
             .background(Color("backgroundGray"))
-            .fullScreenCover(isPresented: $viewModel.isPresentingSheet) {
-                AddToDoView(mainViewModel: viewModel, isPresented: $viewModel.isPresentingSheet)
+            .fullScreenCover(isPresented: $mainViewModel.isPresentingSheet) {
+                AddToDoView(mainViewModel: mainViewModel, isPresented: $mainViewModel.isPresentingSheet)
             }
             .navigationDestination(for: ToDo.self) { todo in
-                ToDoDetailsView(mainViewModel: viewModel,localViewModel: ToDoDetailsViewModel(
+                ToDoDetailsView(mainViewModel: mainViewModel,localViewModel: ToDoDetailsViewModel(
                                                                 id: todo.id,
                                                                 title: todo.title,
                                                                 description: todo.description,
