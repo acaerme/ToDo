@@ -59,7 +59,7 @@ struct TaskCellView: View {
                     .font(.subheadline)
                     .foregroundStyle(.gray)
                     .bold()
-                    .foregroundStyle(.placeholder)
+                    .foregroundStyle(.gray)
             }
         }
     }

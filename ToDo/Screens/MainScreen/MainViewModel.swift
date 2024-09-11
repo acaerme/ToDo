@@ -13,7 +13,12 @@ final class MainViewModel: ObservableObject {
     private let context = DataManager.shared.container.viewContext
     private let networkManager: NetworkManager
     
-    @Published var selectedID = 0 { didSet { updatePresentedTodos() } }
+    @Published var selectedID = 0 { didSet { 
+        DispatchQueue.main.async { [weak self] in
+            self?.updatePresentedTodos()
+        }
+    } }
+    
     @Published var presentedTodos: [ToDo] = []
     @Published var isPresentingSheet = false
     @Published var allTodosCount = 0
@@ -38,7 +43,8 @@ final class MainViewModel: ObservableObject {
         
         if !UserDefaults.standard.bool(forKey: "madeNetworkCall") {
             Task {
-                try await handleNetworkResponse(response: networkManager.fetchData())
+                let response = try await networkManager.fetchData()
+                handleNetworkResponse(response: response)
                 UserDefaults.standard.setValue(true, forKey: "madeNetworkCall")
             }
         }
@@ -81,20 +87,22 @@ final class MainViewModel: ObservableObject {
             let todoEntities = try context.fetch(ToDoEntity.fetchRequest())
             
             for todoEntity in todoEntities {
-                let todo = ToDo(id: todoEntity.id!,
-                                title: todoEntity.title!,
-                                description: todoEntity.todoDescription!,
-                                date: todoEntity.date!,
-                                startTime: todoEntity.startTime!,
-                                endTime: todoEntity.endTime!,
+                let todo = ToDo(id: todoEntity.id ?? UUID(),
+                                title: todoEntity.title ?? "",
+                                description: todoEntity.todoDescription ?? "",
+                                date: todoEntity.date ?? "",
+                                startTime: todoEntity.startTime ?? "",
+                                endTime: todoEntity.endTime ?? "",
                                 completed: todoEntity.completed)
                 
                 allTodos.append(todo)
             }
             
-            sortTodos()
-            countToDos()
-            updatePresentedTodos()
+            DispatchQueue.main.async { [weak self] in
+                self?.sortTodos()
+                self?.countToDos()
+                self?.updatePresentedTodos()
+            }
         } catch {
             print("Something went wrong")
         }
@@ -104,9 +112,12 @@ final class MainViewModel: ObservableObject {
         let todo = viewModel.getToDo()
         
         allTodos.append(todo)
-        sortTodos()
-        countToDos()
-        updatePresentedTodos()
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.sortTodos()
+            self?.countToDos()
+            self?.updatePresentedTodos()
+        }
         
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.addToDoToCoreData(todo: todo)
@@ -121,9 +132,11 @@ final class MainViewModel: ObservableObject {
             }
         }
         
-        sortTodos()
-        countToDos()
-        updatePresentedTodos()
+        DispatchQueue.main.async { [weak self] in
+            self?.sortTodos()
+            self?.countToDos()
+            self?.updatePresentedTodos()
+        }
         
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.deleteToDoFromCoreData(id: id)
@@ -135,9 +148,11 @@ final class MainViewModel: ObservableObject {
         
         allTodos = allTodos.map { $0.id == todo.id ? todo : $0 }
         
-        sortTodos()
-        countToDos()
-        updatePresentedTodos()
+        DispatchQueue.main.async { [weak self] in
+            self?.sortTodos()
+            self?.countToDos()
+            self?.updatePresentedTodos()
+        }
         
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.updateToDoInCoreData(todo: todo)
@@ -151,9 +166,11 @@ final class MainViewModel: ObservableObject {
             }
         }
         
-        sortTodos()
-        countToDos()
-        updatePresentedTodos()
+        DispatchQueue.main.async { [weak self] in
+            self?.sortTodos()
+            self?.countToDos()
+            self?.updatePresentedTodos()
+        }
         
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.handleCompleteButtonTapInCoreData(id: id)
@@ -181,9 +198,11 @@ final class MainViewModel: ObservableObject {
             }
         }
         
-        sortTodos()
-        countToDos()
-        updatePresentedTodos()
+        DispatchQueue.main.async { [weak self] in
+            self?.sortTodos()
+            self?.countToDos()
+            self?.updatePresentedTodos()
+        }
     }
     
     private func addToDoToCoreData(todo: ToDo) {
@@ -219,11 +238,12 @@ final class MainViewModel: ObservableObject {
         
         do {
             let result = try context.fetch(request)
-            result[0].title = todo.title
-            result[0].todoDescription = todo.description
-            result[0].date = todo.date
-            result[0].startTime = todo.startTime
-            result[0].endTime = todo.endTime
+            guard let todoEntity = result.first else { return }
+            todoEntity.title = todo.title
+            todoEntity.todoDescription = todo.description
+            todoEntity.date = todo.date
+            todoEntity.startTime = todo.startTime
+            todoEntity.endTime = todo.endTime
             try context.save()
         } catch {
             print("Something went wrong")
@@ -237,7 +257,8 @@ final class MainViewModel: ObservableObject {
         
         do {
             let result = try context.fetch(request)
-            result[0].completed.toggle()
+            guard let todoEntity = result.first else { return }
+            todoEntity.completed.toggle()
             try context.save()
         } catch {
             print("Something went wrong")

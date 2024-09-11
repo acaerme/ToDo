@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddToDoView: View {
     
-    @ObservedObject var mainViewModel: MainViewModel // *Нужен ли tut wrapper?
+    @ObservedObject var mainViewModel: MainViewModel
     @State var localViewModel = AddToDoViewModel()
     @FocusState var isSecondTFFocused: Bool 
     @Binding var isPresented: Bool
