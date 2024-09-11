@@ -6,10 +6,19 @@
 //
 
 import SwiftUI
+import Swinject
+
+
+
+
 
 struct MainView: View {
     
-    @StateObject private var mainViewModel = MainViewModel()
+    @ObservedObject private var mainViewModel: MainViewModel
+    
+    init(viewModel: MainViewModel) {
+        self.mainViewModel = viewModel
+    }
     
     var body: some View {
         NavigationStack {
@@ -57,11 +66,13 @@ struct MainView: View {
             }
             .ignoresSafeArea(edges: .bottom)
             .background(Color("backgroundGray"))
-            .fullScreenCover(isPresented: $mainViewModel.isPresentingSheet) {
-                AddToDoView(mainViewModel: mainViewModel, isPresented: $mainViewModel.isPresentingSheet)
+            .sheet(isPresented: $mainViewModel.isPresentingSheet) {
+                AddToDoView(mainViewModel: mainViewModel,
+                            isPresented: $mainViewModel.isPresentingSheet)
             }
             .navigationDestination(for: ToDo.self) { todo in
-                ToDoDetailsView(mainViewModel: mainViewModel,localViewModel: ToDoDetailsViewModel(
+                ToDoDetailsView(mainViewModel: mainViewModel,
+                                localViewModel: ToDoDetailsViewModel(
                                                                 id: todo.id,
                                                                 title: todo.title,
                                                                 description: todo.description,
@@ -71,8 +82,4 @@ struct MainView: View {
             }
         }
     }
-}
-
-#Preview {
-    MainView()
 }

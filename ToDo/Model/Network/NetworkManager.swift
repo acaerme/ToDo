@@ -3,14 +3,22 @@
 //  ToDo
 //
 //  Created by Islam Elikhanov on 11/09/2024.
-//
+// 
 
 import Foundation
 
-final class NetworkManager {
-    let urlString = "https://dummyjson.com/todos"
+protocol NetworkManager {
+    func fetchData() async throws -> NetworkResponse
+}
+
+final class NetworkManagerIMP: NetworkManager {
+    let urlString: String
     
-    public func fetchData() async throws -> NetworkResponse {
+    init(url: String) {
+        self.urlString = url
+    }
+    
+    func fetchData() async throws -> NetworkResponse {
         guard let url = URL(string: urlString) else {
             throw NetworkErrors.invalidUrl
         }

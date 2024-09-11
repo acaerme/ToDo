@@ -13,6 +13,11 @@
 		4A60C3832C91D36C0057FEB6 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60C3822C91D36C0057FEB6 /* NetworkManager.swift */; };
 		4A60C3862C91D8610057FEB6 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60C3852C91D8610057FEB6 /* NetworkResponse.swift */; };
 		4A60C3882C91D9B00057FEB6 /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60C3872C91D9B00057FEB6 /* NetworkErrors.swift */; };
+		4A60C3962C9219D70057FEB6 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60C3952C9219D70057FEB6 /* Container.swift */; };
+		4A60C3982C9221F90057FEB6 /* AutoInject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60C3972C9221F90057FEB6 /* AutoInject.swift */; };
+		4A60C39A2C9222220057FEB6 /* MainViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60C3992C9222220057FEB6 /* MainViewAssembly.swift */; };
+		4A60C39D2C92259C0057FEB6 /* SwinjectAutoregistration in Frameworks */ = {isa = PBXBuildFile; productRef = 4A60C39C2C92259C0057FEB6 /* SwinjectAutoregistration */; };
+		4A60C3A02C9225AD0057FEB6 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 4A60C39F2C9225AD0057FEB6 /* Swinject */; };
 		4A8C330B2C8DC6C600FF4276 /* TaskCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C330A2C8DC6C600FF4276 /* TaskCellViewModel.swift */; };
 		4A8C330D2C8DC9B000FF4276 /* AddToDoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C330C2C8DC9B000FF4276 /* AddToDoViewModel.swift */; };
 		4A8C33102C8DE61900FF4276 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C330F2C8DE61900FF4276 /* ToDo.swift */; };
@@ -34,6 +39,9 @@
 		4A60C3822C91D36C0057FEB6 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		4A60C3852C91D8610057FEB6 /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
 		4A60C3872C91D9B00057FEB6 /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
+		4A60C3952C9219D70057FEB6 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		4A60C3972C9221F90057FEB6 /* AutoInject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoInject.swift; sourceTree = "<group>"; };
+		4A60C3992C9222220057FEB6 /* MainViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewAssembly.swift; sourceTree = "<group>"; };
 		4A8C330A2C8DC6C600FF4276 /* TaskCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellViewModel.swift; sourceTree = "<group>"; };
 		4A8C330C2C8DC9B000FF4276 /* AddToDoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoViewModel.swift; sourceTree = "<group>"; };
 		4A8C330F2C8DE61900FF4276 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
@@ -54,6 +62,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A60C39D2C92259C0057FEB6 /* SwinjectAutoregistration in Frameworks */,
+				4A60C3A02C9225AD0057FEB6 /* Swinject in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,20 +73,11 @@
 		4A2D3D582C8B397100B02A4B /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				4AE5426D2C90C1D800A2360A /* ToDoDetailsScreen */,
-				4A2D3D592C8B397C00B02A4B /* HomeScreen */,
+				4A60C3892C9212850057FEB6 /* MainScreen */,
 				4A2D3D5A2C8B427000B02A4B /* AddToDoScreen */,
+				4AE5426D2C90C1D800A2360A /* ToDoDetailsScreen */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		4A2D3D592C8B397C00B02A4B /* HomeScreen */ = {
-			isa = PBXGroup;
-			children = (
-				4A9C8D502C88865200B56C57 /* MainViewModel.swift */,
-				4AEECB432C873E8300CE13EB /* MainView.swift */,
-			);
-			path = HomeScreen;
 			sourceTree = "<group>";
 		};
 		4A2D3D5A2C8B427000B02A4B /* AddToDoScreen */ = {
@@ -96,6 +97,25 @@
 				4A60C3872C91D9B00057FEB6 /* NetworkErrors.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		4A60C3892C9212850057FEB6 /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				4A9C8D502C88865200B56C57 /* MainViewModel.swift */,
+				4AEECB432C873E8300CE13EB /* MainView.swift */,
+				4A60C3992C9222220057FEB6 /* MainViewAssembly.swift */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		4A60C3942C9219CD0057FEB6 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				4A60C3952C9219D70057FEB6 /* Container.swift */,
+				4A60C3972C9221F90057FEB6 /* AutoInject.swift */,
+			);
+			path = DI;
 			sourceTree = "<group>";
 		};
 		4A8C330E2C8DE60200FF4276 /* Model */ = {
@@ -163,6 +183,7 @@
 		4AEECB402C873E8300CE13EB /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
+				4A60C3942C9219CD0057FEB6 /* DI */,
 				4A8C330E2C8DE60200FF4276 /* Model */,
 				4A2D3D582C8B397100B02A4B /* Screens */,
 				4A9C8D522C88B6FD00B56C57 /* Views */,
@@ -197,6 +218,10 @@
 			dependencies = (
 			);
 			name = ToDo;
+			packageProductDependencies = (
+				4A60C39C2C92259C0057FEB6 /* SwinjectAutoregistration */,
+				4A60C39F2C9225AD0057FEB6 /* Swinject */,
+			);
 			productName = ToDo;
 			productReference = 4AEECB3E2C873E8300CE13EB /* ToDo.app */;
 			productType = "com.apple.product-type.application";
@@ -225,6 +250,10 @@
 				Base,
 			);
 			mainGroup = 4AEECB352C873E8300CE13EB;
+			packageReferences = (
+				4A60C39B2C92259C0057FEB6 /* XCRemoteSwiftPackageReference "SwinjectAutoregistration" */,
+				4A60C39E2C9225AD0057FEB6 /* XCRemoteSwiftPackageReference "Swinject" */,
+			);
 			productRefGroup = 4AEECB3F2C873E8300CE13EB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -254,6 +283,7 @@
 				4A8C33102C8DE61900FF4276 /* ToDo.swift in Sources */,
 				4A8C330B2C8DC6C600FF4276 /* TaskCellViewModel.swift in Sources */,
 				4AEECB442C873E8300CE13EB /* MainView.swift in Sources */,
+				4A60C39A2C9222220057FEB6 /* MainViewAssembly.swift in Sources */,
 				4AE5426F2C90C70300A2360A /* ToDoDetailsView.swift in Sources */,
 				4A9C8D4F2C88706300B56C57 /* TopBarView.swift in Sources */,
 				4A60C3882C91D9B00057FEB6 /* NetworkErrors.swift in Sources */,
@@ -262,11 +292,13 @@
 				4A8C330D2C8DC9B000FF4276 /* AddToDoViewModel.swift in Sources */,
 				4A3223C92C8F7595000C2A02 /* CoreData.xcdatamodeld in Sources */,
 				4AEECB422C873E8300CE13EB /* ToDoApp.swift in Sources */,
+				4A60C3982C9221F90057FEB6 /* AutoInject.swift in Sources */,
 				4A60C3832C91D36C0057FEB6 /* NetworkManager.swift in Sources */,
 				4A60C3862C91D8610057FEB6 /* NetworkResponse.swift in Sources */,
 				4A3223CB2C8F7744000C2A02 /* DataManager.swift in Sources */,
 				4A9C8D512C88865200B56C57 /* MainViewModel.swift in Sources */,
 				4A9C8D542C88B77F00B56C57 /* TaskCellView.swift in Sources */,
+				4A60C3962C9219D70057FEB6 /* Container.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,9 +447,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = IE.ToDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -444,9 +480,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = IE.ToDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -472,6 +512,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4A60C39B2C92259C0057FEB6 /* XCRemoteSwiftPackageReference "SwinjectAutoregistration" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/SwinjectAutoregistration.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
+		4A60C39E2C9225AD0057FEB6 /* XCRemoteSwiftPackageReference "Swinject" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Swinject/Swinject.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4A60C39C2C92259C0057FEB6 /* SwinjectAutoregistration */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4A60C39B2C92259C0057FEB6 /* XCRemoteSwiftPackageReference "SwinjectAutoregistration" */;
+			productName = SwinjectAutoregistration;
+		};
+		4A60C39F2C9225AD0057FEB6 /* Swinject */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4A60C39E2C9225AD0057FEB6 /* XCRemoteSwiftPackageReference "Swinject" */;
+			productName = Swinject;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		4A3223C72C8F7595000C2A02 /* CoreData.xcdatamodeld */ = {

@@ -6,16 +6,14 @@
 //
 
 import Foundation
+import SwinjectAutoregistration
 
 final class MainViewModel: ObservableObject {
     
     private let context = DataManager.shared.container.viewContext
-    private let networkManager = NetworkManager()
+    private let networkManager: NetworkManager
     
-    @Published var selectedID = 0 {
-        didSet { updatePresentedTodos() }
-    }
-    
+    @Published var selectedID = 0 { didSet { updatePresentedTodos() } }
     @Published var presentedTodos: [ToDo] = []
     @Published var isPresentingSheet = false
     @Published var allTodosCount = 0
@@ -26,16 +24,17 @@ final class MainViewModel: ObservableObject {
     var openTodos: [ToDo] = []
     var closedTodos: [ToDo] = []
     
-    init() {
+    init(networkManager: NetworkManager) {
+        self.networkManager = networkManager
+        
         fetchTodos()
         
-        
-        if !UserDefaults.standard.bool(forKey: "madeNetworkCall") {
-            Task {
-                try await handleNetworkResponse(response: networkManager.fetchData())
-                UserDefaults.standard.setValue(true, forKey: "madeNetworkCall")
-            }
+        //        if !UserDefaults.standard.bool(forKey: "madeNetworkCall") {
+        Task {
+            try await handleNetworkResponse(response: networkManager.fetchData())
+            UserDefaults.standard.setValue(true, forKey: "madeNetworkCall")
         }
+        //        }
     }
     
     func sortTodos() {
@@ -102,20 +101,12 @@ final class MainViewModel: ObservableObject {
         countToDos()
         updatePresentedTodos()
         
-        let todoEntity = ToDoEntity(context: context)
-        todoEntity.id = todo.id
-        todoEntity.title = todo.title
-        todoEntity.todoDescription = todo.description
-        todoEntity.date = todo.date
-        todoEntity.startTime = todo.startTime
-        todoEntity.endTime = todo.endTime
-        todoEntity.completed = todo.completed
-        
-        try? context.save()
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.addToDoToCoreData(todo: todo)
+        }
     }
     
     func deleteToDo(with id: UUID) {
-
         for index in allTodos.indices {
             if allTodos[index].id == id {
                 allTodos.remove(at: index)
@@ -127,16 +118,8 @@ final class MainViewModel: ObservableObject {
         countToDos()
         updatePresentedTodos()
         
-        let request = ToDoEntity.fetchRequest()
-        let predicate = NSPredicate(format: "id == %@", id as CVarArg)
-        request.predicate = predicate
-        
-        do {
-            let result = try context.fetch(request)
-            context.delete(result[0])
-            try context.save()
-        } catch {
-            print("Something went wrong")
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.deleteToDoFromCoreData(id: id)
         }
     }
     
@@ -178,7 +161,7 @@ final class MainViewModel: ObservableObject {
         let todo = viewModel.getToDo()
         
         allTodos = allTodos.map { $0.id == todo.id ? todo : $0 }
-
+        
         sortTodos()
         countToDos()
         updatePresentedTodos()
@@ -205,12 +188,12 @@ final class MainViewModel: ObservableObject {
         
         for todoResponse in response.todos {
             tempTodos.append(ToDo(id: UUID(),
-                                 title: todoResponse.todo,
-                                 description: "",
-                                 date: "",
-                                 startTime: "",
-                                 endTime: "",
-                                 completed: todoResponse.completed))
+                                  title: todoResponse.todo,
+                                  description: "",
+                                  date: "",
+                                  startTime: "",
+                                  endTime: "",
+                                  completed: todoResponse.completed))
         }
         
         for todo in tempTodos {
@@ -231,6 +214,32 @@ final class MainViewModel: ObservableObject {
         sortTodos()
         countToDos()
         updatePresentedTodos()
+    }
+    
+    private func addToDoToCoreData(todo: ToDo) {
+        let todoEntity = ToDoEntity(context: context)
+        todoEntity.id = todo.id
+        todoEntity.title = todo.title
+        todoEntity.todoDescription = todo.description
+        todoEntity.date = todo.date
+        todoEntity.startTime = todo.startTime
+        todoEntity.endTime = todo.endTime
+        todoEntity.completed = todo.completed
+        try? context.save()
+    }
+    
+    private func deleteToDoFromCoreData(id: UUID) {
+        let request = ToDoEntity.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        request.predicate = predicate
+        
+        do {
+            let result = try context.fetch(request)
+            context.delete(result[0])
+            try context.save()
+        } catch {
+            print("Something went wrong")
+        }
     }
 }
 
