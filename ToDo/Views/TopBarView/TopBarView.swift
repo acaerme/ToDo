@@ -61,7 +61,3 @@ struct TopBarButton: View {
         }
     }
 }
-
-#Preview {
-    TopBarView(mainViewModel: MainViewModel(), selectedID: .constant(0))
-}

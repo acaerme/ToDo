@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct AddToDoViewModel {
+    
     var title = ""
     var description = ""
     var date = Date()
     var startTime = Date()
     var endTime = Date()
+    
+    var isButtonDisabled: Bool {
+        title.isEmpty
+    }
     
     func getToDo() -> ToDo  {
         let formatter = DateFormatter()
@@ -33,9 +38,5 @@ struct AddToDoViewModel {
                         completed: false)
         
         return todo
-    }
-    
-    func checkButton() -> Bool {
-        title.isEmpty
     }
 }

@@ -9,9 +9,9 @@ import SwiftUI
 
 struct AddToDoView: View {
     
-    var mainViewModel: MainViewModel
+    @ObservedObject var mainViewModel: MainViewModel // *Нужен ли tut wrapper?
     @State var localViewModel = AddToDoViewModel()
-    @FocusState var isSecondTFFocused: Bool // TODO: Should I move it to viewModel?
+    @FocusState var isSecondTFFocused: Bool 
     @Binding var isPresented: Bool
     
     
@@ -48,12 +48,9 @@ struct AddToDoView: View {
                 } label: {
                     Text("Add ToDo")
                 }
-                .disabled(localViewModel.checkButton())
+                .disabled(localViewModel.isButtonDisabled)
             }
         }
     }
 }
 
-#Preview {
-    AddToDoView(mainViewModel: MainViewModel(), isPresented: .constant(true))
-}
