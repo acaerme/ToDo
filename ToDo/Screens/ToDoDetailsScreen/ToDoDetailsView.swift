@@ -1,19 +1,18 @@
 //
-//  AddToDoView.swift
+//  ToDoDetailsView.swift
 //  ToDo
 //
-//  Created by Islam Elikhanov on 06/09/2024.
+//  Created by Islam Elikhanov on 10/09/2024.
 //
 
 import SwiftUI
 
-struct AddToDoView: View {
+struct ToDoDetailsView: View {
     
     var mainViewModel: MainViewModel
-    @State var localViewModel = AddToDoViewModel()
-    @FocusState var isSecondTFFocused: Bool // TODO: Should I move it to viewModel?
-    @Binding var isPresented: Bool
-    
+    @State var localViewModel: ToDoDetailsViewModel
+    @FocusState var isSecondTFFocused: Bool
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack {
@@ -33,27 +32,32 @@ struct AddToDoView: View {
                                selection: $localViewModel.date,
                                displayedComponents: [.date])
                     
-                    DatePicker("Start", 
+                    DatePicker("Start",
                                selection: $localViewModel.startTime,
                                displayedComponents: [.hourAndMinute])
                     
-                    DatePicker("End", 
+                    DatePicker("End",
                                selection: $localViewModel.endTime,
                                displayedComponents: [.hourAndMinute])
                 }
                 
                 Button {
-                    mainViewModel.addToDo(from: localViewModel)
-                    isPresented = false
+                    mainViewModel.updateToDo(from: localViewModel)
+                    dismiss()
                 } label: {
-                    Text("Add ToDo")
+                    Text("Save Changes")
                 }
                 .disabled(localViewModel.checkButton())
+                
+                Button {
+                    mainViewModel.deleteToDo(with: localViewModel.id)
+                    dismiss()
+                } label: {
+                    Text("Delete ToDo")
+                }
+                .disabled(localViewModel.checkButton())
+                .foregroundStyle(.red)
             }
         }
     }
-}
-
-#Preview {
-    AddToDoView(mainViewModel: MainViewModel(), isPresented: .constant(true))
 }

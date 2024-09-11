@@ -10,14 +10,19 @@
 		4A2D3D5C2C8B428600B02A4B /* AddToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2D3D5B2C8B428600B02A4B /* AddToDoView.swift */; };
 		4A3223C92C8F7595000C2A02 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4A3223C72C8F7595000C2A02 /* CoreData.xcdatamodeld */; };
 		4A3223CB2C8F7744000C2A02 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3223CA2C8F7744000C2A02 /* DataManager.swift */; };
+		4A60C3832C91D36C0057FEB6 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60C3822C91D36C0057FEB6 /* NetworkManager.swift */; };
+		4A60C3862C91D8610057FEB6 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60C3852C91D8610057FEB6 /* NetworkResponse.swift */; };
+		4A60C3882C91D9B00057FEB6 /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60C3872C91D9B00057FEB6 /* NetworkErrors.swift */; };
 		4A8C330B2C8DC6C600FF4276 /* TaskCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C330A2C8DC6C600FF4276 /* TaskCellViewModel.swift */; };
 		4A8C330D2C8DC9B000FF4276 /* AddToDoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C330C2C8DC9B000FF4276 /* AddToDoViewModel.swift */; };
 		4A8C33102C8DE61900FF4276 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8C330F2C8DE61900FF4276 /* ToDo.swift */; };
 		4A9C8D4F2C88706300B56C57 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C8D4E2C88706300B56C57 /* TopBarView.swift */; };
-		4A9C8D512C88865200B56C57 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C8D502C88865200B56C57 /* HomeViewModel.swift */; };
+		4A9C8D512C88865200B56C57 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C8D502C88865200B56C57 /* MainViewModel.swift */; };
 		4A9C8D542C88B77F00B56C57 /* TaskCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C8D532C88B77F00B56C57 /* TaskCellView.swift */; };
+		4AE5426F2C90C70300A2360A /* ToDoDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5426E2C90C70300A2360A /* ToDoDetailsView.swift */; };
+		4AE542712C90C85400A2360A /* ToDoDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE542702C90C85400A2360A /* ToDoDetailsViewModel.swift */; };
 		4AEECB422C873E8300CE13EB /* ToDoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEECB412C873E8300CE13EB /* ToDoApp.swift */; };
-		4AEECB442C873E8300CE13EB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEECB432C873E8300CE13EB /* HomeView.swift */; };
+		4AEECB442C873E8300CE13EB /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEECB432C873E8300CE13EB /* MainView.swift */; };
 		4AEECB462C873E8500CE13EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AEECB452C873E8500CE13EB /* Assets.xcassets */; };
 		4AEECB492C873E8500CE13EB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AEECB482C873E8500CE13EB /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -26,15 +31,20 @@
 		4A2D3D5B2C8B428600B02A4B /* AddToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoView.swift; sourceTree = "<group>"; };
 		4A3223C82C8F7595000C2A02 /* ToDoCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDoCoreData.xcdatamodel; sourceTree = "<group>"; };
 		4A3223CA2C8F7744000C2A02 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		4A60C3822C91D36C0057FEB6 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		4A60C3852C91D8610057FEB6 /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
+		4A60C3872C91D9B00057FEB6 /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
 		4A8C330A2C8DC6C600FF4276 /* TaskCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellViewModel.swift; sourceTree = "<group>"; };
 		4A8C330C2C8DC9B000FF4276 /* AddToDoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToDoViewModel.swift; sourceTree = "<group>"; };
 		4A8C330F2C8DE61900FF4276 /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		4A9C8D4E2C88706300B56C57 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
-		4A9C8D502C88865200B56C57 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		4A9C8D502C88865200B56C57 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		4A9C8D532C88B77F00B56C57 /* TaskCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCellView.swift; sourceTree = "<group>"; };
+		4AE5426E2C90C70300A2360A /* ToDoDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDetailsView.swift; sourceTree = "<group>"; };
+		4AE542702C90C85400A2360A /* ToDoDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoDetailsViewModel.swift; sourceTree = "<group>"; };
 		4AEECB3E2C873E8300CE13EB /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AEECB412C873E8300CE13EB /* ToDoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoApp.swift; sourceTree = "<group>"; };
-		4AEECB432C873E8300CE13EB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		4AEECB432C873E8300CE13EB /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		4AEECB452C873E8500CE13EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4AEECB482C873E8500CE13EB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -53,6 +63,7 @@
 		4A2D3D582C8B397100B02A4B /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				4AE5426D2C90C1D800A2360A /* ToDoDetailsScreen */,
 				4A2D3D592C8B397C00B02A4B /* HomeScreen */,
 				4A2D3D5A2C8B427000B02A4B /* AddToDoScreen */,
 			);
@@ -62,8 +73,8 @@
 		4A2D3D592C8B397C00B02A4B /* HomeScreen */ = {
 			isa = PBXGroup;
 			children = (
-				4A9C8D502C88865200B56C57 /* HomeViewModel.swift */,
-				4AEECB432C873E8300CE13EB /* HomeView.swift */,
+				4A9C8D502C88865200B56C57 /* MainViewModel.swift */,
+				4AEECB432C873E8300CE13EB /* MainView.swift */,
 			);
 			path = HomeScreen;
 			sourceTree = "<group>";
@@ -77,9 +88,20 @@
 			path = AddToDoScreen;
 			sourceTree = "<group>";
 		};
+		4A60C3842C91D83C0057FEB6 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				4A60C3822C91D36C0057FEB6 /* NetworkManager.swift */,
+				4A60C3852C91D8610057FEB6 /* NetworkResponse.swift */,
+				4A60C3872C91D9B00057FEB6 /* NetworkErrors.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		4A8C330E2C8DE60200FF4276 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4A60C3842C91D83C0057FEB6 /* Network */,
 				4A8C330F2C8DE61900FF4276 /* ToDo.swift */,
 				4A3223CA2C8F7744000C2A02 /* DataManager.swift */,
 				4A3223C72C8F7595000C2A02 /* CoreData.xcdatamodeld */,
@@ -111,6 +133,15 @@
 				4A8C33112C8DE8FF00FF4276 /* TaskCellView */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		4AE5426D2C90C1D800A2360A /* ToDoDetailsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				4AE542702C90C85400A2360A /* ToDoDetailsViewModel.swift */,
+				4AE5426E2C90C70300A2360A /* ToDoDetailsView.swift */,
+			);
+			path = ToDoDetailsScreen;
 			sourceTree = "<group>";
 		};
 		4AEECB352C873E8300CE13EB = {
@@ -222,14 +253,19 @@
 			files = (
 				4A8C33102C8DE61900FF4276 /* ToDo.swift in Sources */,
 				4A8C330B2C8DC6C600FF4276 /* TaskCellViewModel.swift in Sources */,
-				4AEECB442C873E8300CE13EB /* HomeView.swift in Sources */,
+				4AEECB442C873E8300CE13EB /* MainView.swift in Sources */,
+				4AE5426F2C90C70300A2360A /* ToDoDetailsView.swift in Sources */,
 				4A9C8D4F2C88706300B56C57 /* TopBarView.swift in Sources */,
+				4A60C3882C91D9B00057FEB6 /* NetworkErrors.swift in Sources */,
 				4A2D3D5C2C8B428600B02A4B /* AddToDoView.swift in Sources */,
+				4AE542712C90C85400A2360A /* ToDoDetailsViewModel.swift in Sources */,
 				4A8C330D2C8DC9B000FF4276 /* AddToDoViewModel.swift in Sources */,
 				4A3223C92C8F7595000C2A02 /* CoreData.xcdatamodeld in Sources */,
 				4AEECB422C873E8300CE13EB /* ToDoApp.swift in Sources */,
+				4A60C3832C91D36C0057FEB6 /* NetworkManager.swift in Sources */,
+				4A60C3862C91D8610057FEB6 /* NetworkResponse.swift in Sources */,
 				4A3223CB2C8F7744000C2A02 /* DataManager.swift in Sources */,
-				4A9C8D512C88865200B56C57 /* HomeViewModel.swift in Sources */,
+				4A9C8D512C88865200B56C57 /* MainViewModel.swift in Sources */,
 				4A9C8D542C88B77F00B56C57 /* TaskCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

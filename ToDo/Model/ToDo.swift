@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ToDo: Identifiable {
+struct ToDo: Identifiable, Hashable {
     let id: UUID
     let title: String
     let description: String

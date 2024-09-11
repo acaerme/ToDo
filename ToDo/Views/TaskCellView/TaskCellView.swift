@@ -9,20 +9,22 @@ import SwiftUI
 
 struct TaskCellView: View {
     
-    @State var viewModel: TaskCellViewModel
+    @State var mainViewModel: MainViewModel
+    @State var localViewModel: TaskCellViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 VStack(alignment: .leading, spacing: 6) {
-                    Text(viewModel.todo.title)
+                    Text(localViewModel.todo.title)
                         .font(.headline)
+                        .foregroundStyle(.black)
                         .bold()
                         .lineLimit(1)
                         .padding(.leading, 20)
-                        .strikethrough(viewModel.todo.completed, color: .gray)
+                        .strikethrough(localViewModel.todo.completed, color: .gray)
                     
-                    Text(!viewModel.todo.description.isEmpty ? viewModel.todo.description : "No description")
+                    Text(!localViewModel.todo.description.isEmpty ? localViewModel.todo.description : "No description")
                         .font(.subheadline)
                         .foregroundStyle(.gray)
                         .lineLimit(1)
@@ -32,13 +34,14 @@ struct TaskCellView: View {
                 Spacer()
                 
                 Button {
-                    viewModel.todo.completed.toggle()
+                    mainViewModel.completedButtonTappedInCell(with: localViewModel.todo.id)
+                    localViewModel.completeButtonTapped()
                 } label: {
-                    Image(systemName: viewModel.todo.completed ? "checkmark.circle.fill" : "circle")
+                    Image(systemName: localViewModel.todo.completed ? "checkmark.circle.fill" : "circle")
                         .resizable()
                         .frame(width: 20, height: 20)
                 }
-                .tint(viewModel.todo.completed ? .blue : .gray)
+                .tint(localViewModel.todo.completed ? .blue : .gray)
                 .padding(.horizontal, 20)
             }
             
@@ -46,14 +49,15 @@ struct TaskCellView: View {
                 .padding(.horizontal)
             
             HStack {
-                Text(viewModel.todo.date)
+                Text(!localViewModel.todo.date.isEmpty ? localViewModel.todo.date : "No schedule")
                     .font(.subheadline)
                     .bold()
                     .foregroundStyle(.gray)
                     .padding(.leading, 20)
                 
-                Text("\(viewModel.todo.startTime) - \(viewModel.todo.endTime)")
+                Text("\(localViewModel.todo.startTime) - \(localViewModel.todo.endTime)")
                     .font(.subheadline)
+                    .foregroundStyle(.gray)
                     .bold()
                     .foregroundStyle(.placeholder)
             }

@@ -8,5 +8,10 @@
 import Foundation
 
 struct TaskCellViewModel {
+    
     var todo: ToDo
+    
+    mutating func completeButtonTapped() {
+        todo.completed.toggle()
+    }
 }

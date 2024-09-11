@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TopBarView: View {
     
-    @ObservedObject var homeViewModel: HomeViewModel
+    @ObservedObject var homeViewModel: MainViewModel
     @Binding var selectedID: Int
 
     var body: some View {
@@ -63,5 +63,5 @@ struct TopBarButton: View {
 }
 
 #Preview {
-    TopBarView(homeViewModel: HomeViewModel(), selectedID: .constant(0))
+    TopBarView(homeViewModel: MainViewModel(), selectedID: .constant(0))
 }
