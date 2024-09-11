@@ -15,11 +15,15 @@ struct ToDoDetailsViewModel {
     var startTime: Date
     var endTime: Date
     
+    var isButtonDisabled: Bool {
+        title.isEmpty
+    }
+    
     init(id: UUID, title: String, description: String, date: String, startTime: String, endTime: String) {
         self.id = id
         self.title = title
         self.description = description
-                
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "d MMMM"
         
@@ -57,9 +61,5 @@ struct ToDoDetailsViewModel {
                         completed: false)
         
         return todo
-    }
-    
-    func checkButton() -> Bool {
-        title.isEmpty
-    }
+    }    
 }

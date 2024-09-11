@@ -19,22 +19,29 @@ final class MainViewModel: ObservableObject {
     @Published var allTodosCount = 0
     @Published var openTodosCount = 0
     @Published var closedTodosCount = 0
-    lazy var date = getDate()
+    var dateString: String {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, d MMMM"
+        
+        return formatter.string(from: date)
+    }
     var allTodos: [ToDo] = []
     var openTodos: [ToDo] = []
     var closedTodos: [ToDo] = []
+    
     
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
         
         fetchTodos()
         
-        //        if !UserDefaults.standard.bool(forKey: "madeNetworkCall") {
-        Task {
-            try await handleNetworkResponse(response: networkManager.fetchData())
-            UserDefaults.standard.setValue(true, forKey: "madeNetworkCall")
+        if !UserDefaults.standard.bool(forKey: "madeNetworkCall") {
+            Task {
+                try await handleNetworkResponse(response: networkManager.fetchData())
+                UserDefaults.standard.setValue(true, forKey: "madeNetworkCall")
+            }
         }
-        //        }
     }
     
     func sortTodos() {
@@ -123,16 +130,20 @@ final class MainViewModel: ObservableObject {
         }
     }
     
-    
-    
-    func getDate() -> String {
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, d MMMM"
+    func updateToDo(from viewModel: ToDoDetailsViewModel) {
+        let todo = viewModel.getToDo()
         
-        return formatter.string(from: date)
+        allTodos = allTodos.map { $0.id == todo.id ? todo : $0 }
+        
+        sortTodos()
+        countToDos()
+        updatePresentedTodos()
+        
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.updateToDoInCoreData(todo: todo)
+        }
     }
-    
+
     func completedButtonTappedInCell(with id: UUID) {
         for index in allTodos.indices {
             if allTodos[index].id == id {
@@ -144,42 +155,8 @@ final class MainViewModel: ObservableObject {
         countToDos()
         updatePresentedTodos()
         
-        let request = ToDoEntity.fetchRequest()
-        let predicate = NSPredicate(format: "id == %@", id as CVarArg)
-        request.predicate = predicate
-        
-        do {
-            let result = try context.fetch(request)
-            result[0].completed.toggle()
-            try context.save()
-        } catch {
-            print("Something went wrong")
-        }
-    }
-    
-    func updateToDo(from viewModel: ToDoDetailsViewModel) {
-        let todo = viewModel.getToDo()
-        
-        allTodos = allTodos.map { $0.id == todo.id ? todo : $0 }
-        
-        sortTodos()
-        countToDos()
-        updatePresentedTodos()
-        
-        let request = ToDoEntity.fetchRequest()
-        let predicate = NSPredicate(format: "id == %@", todo.id as CVarArg)
-        request.predicate = predicate
-        
-        do {
-            let result = try context.fetch(request)
-            result[0].title = todo.title
-            result[0].todoDescription = todo.description
-            result[0].date = todo.date
-            result[0].startTime = todo.startTime
-            result[0].endTime = todo.endTime
-            try context.save()
-        } catch {
-            print("Something went wrong")
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.handleCompleteButtonTapInCoreData(id: id)
         }
     }
     
@@ -199,16 +176,9 @@ final class MainViewModel: ObservableObject {
         for todo in tempTodos {
             allTodos.append(todo)
             
-            let todoEntity = ToDoEntity(context: context)
-            todoEntity.id = todo.id
-            todoEntity.title = todo.title
-            todoEntity.todoDescription = todo.description
-            todoEntity.date = todo.date
-            todoEntity.startTime = todo.startTime
-            todoEntity.endTime = todo.endTime
-            todoEntity.completed = todo.completed
-            
-            try? context.save()
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                self?.addToDoToCoreData(todo: todo)
+            }
         }
         
         sortTodos()
@@ -236,6 +206,38 @@ final class MainViewModel: ObservableObject {
         do {
             let result = try context.fetch(request)
             context.delete(result[0])
+            try context.save()
+        } catch {
+            print("Something went wrong")
+        }
+    }
+    
+    private func updateToDoInCoreData(todo: ToDo) {
+        let request = ToDoEntity.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", todo.id as CVarArg)
+        request.predicate = predicate
+        
+        do {
+            let result = try context.fetch(request)
+            result[0].title = todo.title
+            result[0].todoDescription = todo.description
+            result[0].date = todo.date
+            result[0].startTime = todo.startTime
+            result[0].endTime = todo.endTime
+            try context.save()
+        } catch {
+            print("Something went wrong")
+        }
+    }
+    
+    private func handleCompleteButtonTapInCoreData(id: UUID) {
+        let request = ToDoEntity.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        request.predicate = predicate
+        
+        do {
+            let result = try context.fetch(request)
+            result[0].completed.toggle()
             try context.save()
         } catch {
             print("Something went wrong")

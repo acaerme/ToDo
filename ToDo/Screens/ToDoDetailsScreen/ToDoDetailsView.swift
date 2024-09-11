@@ -47,7 +47,7 @@ struct ToDoDetailsView: View {
                 } label: {
                     Text("Save Changes")
                 }
-                .disabled(localViewModel.checkButton())
+                .disabled(localViewModel.isButtonDisabled)
                 
                 Button {
                     mainViewModel.deleteToDo(with: localViewModel.id)
@@ -55,7 +55,7 @@ struct ToDoDetailsView: View {
                 } label: {
                     Text("Delete ToDo")
                 }
-                .disabled(localViewModel.checkButton())
+                .disabled(localViewModel.isButtonDisabled)
                 .foregroundStyle(.red)
             }
         }

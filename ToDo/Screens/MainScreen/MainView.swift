@@ -30,7 +30,7 @@ struct MainView: View {
                             .font(.title)
                             .bold()
                         
-                        Text(mainViewModel.date)
+                        Text(mainViewModel.dateString)
                             .lineLimit(1)
                             .minimumScaleFactor(0.6)
                             .bold()
